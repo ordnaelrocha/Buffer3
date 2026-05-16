@@ -3,341 +3,295 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Expedição Meli - PRO</title>
+    <title>Expedição Meli Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg: #000000; --card: #1a1a1a; --text: #ffffff; --primary: #007bff; --danger: #dc3545; --success: #28a745; --warning: #ffc107; --accent: #00f2ff;
-            /* Cores das Docas */
-            --d53: #e63946; --d54: #f1fa8c; --d55: #a2d2ff; --d56: #50fa7b; --d57: #ffb86c; --d58: #ff79c6; --d59: #bd93f9; --d60: #8be9fd; --d61: #ff5555;
+        :root { 
+            --bg: #0b0e11; --card: #161b22; --text: #f0f6fc; 
+            --primary: #2f81f7; --warning: #d29922; --success: #238636; --accent: #79c0ff;
+            --danger: #f85149;
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background: var(--bg); color: var(--text); padding-bottom: 60px; transition: background 0.3s; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background: var(--bg); color: var(--text); padding-bottom: 40px; }
+        
+        /* Header Play Store Style */
+        .app-header { background: var(--card); padding: 20px; text-align: center; border-bottom: 1px solid #30363d; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        #clock { font-size: 36px; font-weight: 800; color: var(--accent); letter-spacing: -1px; }
+        .date-label { font-size: 12px; color: #8b949e; text-transform: uppercase; margin-top: 5px; letter-spacing: 1px; }
 
-        .header-clock { 
-            background: linear-gradient(180deg, #111 0%, #000 100%);
-            padding: 15px; text-align: center; border-bottom: 1px solid #333;
-        }
-        #clock { 
-            font-size: 38px; font-weight: 800; color: var(--accent); 
-            text-shadow: 0 0 15px rgba(0, 242, 255, 0.5); font-variant-numeric: tabular-nums;
-        }
-        .date-display { font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 2px; }
-
-        .tabs-container { background: #111; border-bottom: 2px solid #333; position: sticky; top: 0; z-index: 99; }
-        .tabs-row { display: flex; overflow-x: auto; gap: 5px; padding: 8px; scrollbar-width: none; }
+        /* Tabs modernas */
+        .tabs-container { position: sticky; top: 0; z-index: 99; background: var(--bg); padding-top: 10px; border-bottom: 1px solid #30363d; }
+        .tabs-row { display: flex; overflow-x: auto; gap: 8px; padding: 0 15px 10px; scrollbar-width: none; }
         .tabs-row::-webkit-scrollbar { display: none; }
-        
-        .tab { padding: 10px 15px; border: none; background: #222; color: #888; font-weight: bold; border-radius: 5px; white-space: nowrap; font-size: 11px; flex: 1; text-align: center; cursor: pointer; }
-        .tab.active { color: #fff; background: var(--primary); }
-        .tab.hist.active { background: #f0f0f0; color: #000; }
-        
-        /* Cores Ativas das Docas */
-        .tab.d53.active { background: var(--d53); color: #fff; }
-        .tab.d54.active { background: var(--d54); color: #000; }
-        .tab.d55.active { background: var(--d55); color: #000; }
-        .tab.d56.active { background: var(--d56); color: #000; }
-        .tab.d57.active { background: var(--d57); color: #000; }
-        .tab.d58.active { background: var(--d58); color: #000; }
-        .tab.d59.active { background: var(--d59); color: #000; }
-        .tab.d60.active { background: var(--d60); color: #000; }
-        .tab.d61.active { background: var(--d61); color: #fff; }
+        .tab { padding: 12px 20px; border: none; background: #21262d; color: #8b949e; font-weight: 600; border-radius: 12px; cursor: pointer; white-space: nowrap; font-size: 13px; transition: 0.3s; }
+        .tab.active { background: var(--primary); color: #fff; box-shadow: 0 4px 15px rgba(47, 129, 247, 0.4); }
+        .tab.hist-tab.active { background: #fff; color: #000; }
 
-        .container { padding: 10px; max-width: 800px; margin: 0 auto; }
-        .add-box { background: var(--card); padding: 15px; border-radius: 10px; margin-bottom: 15px; border: 1px solid #333; text-align: center; }
+        .container { padding: 15px; max-width: 600px; margin: 0 auto; }
         
-        .counter-group { display: flex; align-items: center; justify-content: center; gap: 5px; background: #000; padding: 5px; border-radius: 8px; border: 1px solid #444; flex: 1; }
-        .btn-qty { background: #333; color: white; border: none; width: 40px; height: 40px; border-radius: 5px; font-size: 22px; font-weight: bold; cursor: pointer; }
-        .qty-input { width: 45px; text-align: center; background: none; border: none; color: white; font-size: 18px; font-weight: bold; }
+        /* Card de Adição */
+        .add-box { background: var(--card); padding: 20px; border-radius: 24px; margin-bottom: 20px; border: 1px solid #30363d; box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+        .input-main { width: 100%; padding: 16px; background: #0d1117; color: #fff; border: 2px solid #30363d; border-radius: 16px; margin-bottom: 15px; font-size: 16px; font-weight: 600; outline: none; transition: 0.3s; text-align: center; text-transform: uppercase; }
+        .input-main:focus { border-color: var(--primary); }
 
-        .label-mini { font-size: 10px; color: #aaa; margin-bottom: 3px; display: block; text-transform: uppercase; font-weight: bold; margin-top: 10px; }
-        .input-main { background: #000; border: 1px solid #444; color: #fff; padding: 12px; border-radius: 6px; font-size: 16px; width: 100%; text-align: center; }
-        
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(105px, 1fr)); gap: 10px; }
-        .bloco { 
-            aspect-ratio: 1/1; border-radius: 12px; padding: 10px; 
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            font-weight: bold; cursor: pointer; border: 2px solid rgba(255,255,255,0.1);
-        }
-        .bloco .titulo { font-size: 12px; text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.2); width: 100%; padding-bottom: 5px; margin-bottom: 8px; text-align: center; }
-        .bloco .qtd { font-size: 26px; }
+        /* Seletor de Cores */
+        .color-picker { display: flex; justify-content: center; gap: 12px; margin-bottom: 20px; }
+        .color-opt { width: 35px; height: 35px; border-radius: 12px; cursor: pointer; border: 3px solid transparent; transition: 0.2s; }
+        .color-opt.active { border-color: #fff; transform: scale(1.2); }
 
-        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.92); display: none; align-items: center; justify-content: center; z-index: 100; padding: 20px; }
-        .modal-content { background: var(--card); width: 100%; max-width: 360px; padding: 20px; border-radius: 20px; border: 1px solid #444; overflow-y: auto; max-height: 90vh; }
-        
-        .btn { padding: 14px; border: none; border-radius: 8px; width: 100%; font-weight: bold; margin-top: 10px; cursor: pointer; text-transform: uppercase; }
-        .btn-move { background: var(--warning); color: #000; }
-        .btn-ok { background: var(--success); color: #fff; }
-        .btn-delete { background: none; color: var(--danger); border: 1px solid var(--danger); font-size: 11px; margin-top: 20px; }
-        
-        #histSec { background: #ffffff; border-radius: 15px; padding: 15px; color: #000000; min-height: 60vh; margin-top: 10px; }
-        .hist-card { background: #f4f4f4; padding: 12px; border-radius: 8px; margin-bottom: 10px; border: 1px solid #ddd; display: flex; justify-content: space-between; align-items: flex-start; color: #000; }
-        .hist-info b { font-size: 15px; display: block; color: #000; }
-        .hist-tag { background: #e0e0e0; padding: 3px 6px; border-radius: 4px; font-size: 10px; margin-right: 4px; font-weight: bold; color: #333; display: inline-block; margin-top: 4px; }
-        .btn-del-mini { background: #ffdfdf; color: #cc0000; border: 1px solid #cc0000; width: 30px; height: 30px; border-radius: 6px; font-weight: bold; cursor: pointer; }
+        /* Contadores */
+        .counter-row { display: flex; gap: 15px; margin-bottom: 20px; }
+        .counter-card { flex: 1; background: #0d1117; padding: 12px; border-radius: 18px; text-align: center; border: 1px solid #30363d; }
+        .counter-card small { font-size: 10px; color: #8b949e; font-weight: 700; text-transform: uppercase; }
+        .counter-controls { display: flex; align-items: center; justify-content: space-between; margin-top: 8px; }
+        .btn-round { width: 40px; height: 40px; border-radius: 12px; border: none; background: #30363d; color: #fff; font-size: 20px; font-weight: bold; cursor: pointer; }
+        .qty-val { font-size: 22px; font-weight: 800; color: #fff; }
 
-        .color-dot { width: 30px; height: 30px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; }
-        .color-dot.active { border-color: #fff; transform: scale(1.1); }
-        .color-selector { display: flex; gap: 10px; justify-content: center; margin: 15px 0; }
+        /* Grid */
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+        .bloco { border-radius: 24px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; min-height: 140px; cursor: pointer; transition: 0.3s; border: 1px solid rgba(255,255,255,0.1); }
+        .bloco-rua { font-size: 14px; font-weight: 700; text-transform: uppercase; }
+        .bloco-qtd { font-size: 52px; font-weight: 800; line-height: 1; margin: 10px 0; }
+        .bloco-status { font-size: 10px; font-weight: 600; padding: 4px 10px; background: rgba(0,0,0,0.2); border-radius: 20px; align-self: flex-start; }
 
-        .hidden { display: none; }
-        select { background: #000; border: 1px solid #444; color: #fff; padding: 12px; border-radius: 6px; width: 100%; margin-top: 5px; font-size: 16px; }
+        /* Modal */
+        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); display: none; align-items: flex-end; justify-content: center; z-index: 1000; }
+        .modal-content { background: var(--card); width: 100%; max-width: 500px; padding: 30px; border-radius: 32px 32px 0 0; animation: slideUp 0.3s ease-out; max-height: 90vh; overflow-y: auto; }
+        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+
+        .btn-big { width: 100%; padding: 18px; border: none; border-radius: 20px; font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 12px; }
+        .btn-primary { background: var(--primary); color: #fff; }
+        .btn-warning { background: var(--warning); color: #000; }
+        .btn-success { background: var(--success); color: #fff; }
+        .btn-info { background: #1f6feb; color: #fff; }
+
+        .hist-item { background: var(--card); padding: 15px; border-radius: 16px; margin-bottom: 10px; border: 1px solid #30363d; display: flex; justify-content: space-between; align-items: center; }
+        select { width: 100%; padding: 16px; background: #0d1117; color: #fff; border: 1px solid #30363d; border-radius: 16px; font-size: 15px; margin: 10px 0; outline: none; }
     </style>
 </head>
 <body>
 
-<div class="header-clock">
+<div class="app-header">
     <div id="clock">00:00:00</div>
-    <div class="date-display" id="date">Aguardando...</div>
+    <div class="date-label" id="date">--</div>
 </div>
 
 <div class="tabs-container">
-    <div class="tabs-row" id="rowBuffers"></div>
-    <div class="tabs-row" id="rowCarregamento"></div>
+    <div class="tabs-row" id="tabsBuffers"></div>
+    <div class="tabs-row" id="tabsDocas"></div>
 </div>
 
 <div class="container">
-    <div id="formContainer" class="add-box">
-        <span class="label-mini">Nome da Rua/Estado</span>
-        <input type="text" id="ruaNum" class="input-main" placeholder="Ex: SP, RJ, MG" style="margin-bottom:10px;">
-        <div style="display:flex; gap:10px;">
-            <div style="flex:1">
-                <span class="label-mini">Pilhas</span>
-                <div class="counter-group">
-                    <button class="btn-qty" onclick="ajustarAuto('qtdP', -1, 'qtdPP')">-</button>
-                    <input type="number" id="qtdP" class="qty-input" value="1" readonly>
-                    <button class="btn-qty" onclick="ajustarAuto('qtdP', 1, 'qtdPP')">+</button>
+    <div id="formEntrada" class="add-box">
+        <input type="text" id="ruaNum" class="input-main" placeholder="NOME DO ESTADO">
+        
+        <div class="color-picker" id="colorPicker">
+            <div class="color-opt active" style="background:#2f81f7" data-color="#2f81f7"></div>
+            <div class="color-opt" style="background:#f85149" data-color="#f85149"></div>
+            <div class="color-opt" style="background:#238636" data-color="#238636"></div>
+            <div class="color-opt" style="background:#d29922" data-color="#d29922"></div>
+            <div class="color-opt" style="background:#8957e5" data-color="#8957e5"></div>
+            <div class="color-opt" style="background:#f62d8f" data-color="#f62d8f"></div>
+        </div>
+
+        <div class="counter-row">
+            <div class="counter-card">
+                <small>Pilhas (1=2)</small>
+                <div class="counter-controls">
+                    <button class="btn-round" onclick="calc('p', -1, 'dispP', 'dispPP')">-</button>
+                    <span class="qty-val" id="dispP">1</span>
+                    <button class="btn-round" onclick="calc('p', 1, 'dispP', 'dispPP')">+</button>
                 </div>
             </div>
-            <div style="flex:1">
-                <span class="label-mini">Paletes</span>
-                <div class="counter-group">
-                    <button class="btn-qty" onclick="ajustarIndividual('qtdPP', -1)">-</button>
-                    <input type="number" id="qtdPP" class="qty-input" value="2" readonly>
-                    <button class="btn-qty" onclick="ajustarIndividual('qtdPP', 1)">+</button>
+            <div class="counter-card">
+                <small>Total Paletes</small>
+                <div class="counter-controls">
+                    <button class="btn-round" onclick="calc('pp', -1, 'dispP', 'dispPP')">-</button>
+                    <span class="qty-val" id="dispPP">2</span>
+                    <button class="btn-round" onclick="calc('pp', 1, 'dispP', 'dispPP')">+</button>
                 </div>
             </div>
         </div>
-        <button class="btn btn-ok" onclick="adicionar()" style="background:var(--primary)">+ Fixar no Buffer</button>
+        <button onclick="adicionar()" class="btn-big btn-primary">Fixar Estado no Quadro</button>
     </div>
 
     <div id="mainGrid" class="grid"></div>
-
-    <div id="histSec" class="hidden">
-        <h3 style="color:#000; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 15px; text-align: center;">RELATÓRIO DE EXPEDIÇÃO</h3>
-        <div id="histLista"></div>
-    </div>
+    <div id="histSec" style="display:none;"><div id="histLista"></div></div>
 </div>
 
 <div class="modal" id="modal">
     <div class="modal-content">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <h2 id="mRua">Rua</h2>
-            <button onclick="fecharModal()" style="background:none; border:none; color:#fff; font-size:24px;">✕</button>
+        <div style="text-align:center; margin-bottom:20px;">
+            <h2 id="mRua" style="font-size:28px; font-weight:800;"></h2>
+            <div id="mStatusBadge" class="bloco-status" style="display:inline-block; margin-top:5px;"></div>
         </div>
         
-        <div class="color-selector" id="mCores"></div>
-
-        <div style="display:flex; gap:10px; margin-bottom:15px;">
-            <div style="flex:1">
-                <span class="label-mini">Pilhas</span>
-                <div class="counter-group">
-                    <button class="btn-qty" onclick="ajustarAuto('editP', -1, 'editPP'); atualizarSomaModal()">-</button>
-                    <input type="number" id="editP" class="qty-input" value="0" readonly>
-                    <button class="btn-qty" onclick="ajustarAuto('editP', 1, 'editPP'); atualizarSomaModal()">+</button>
+        <div class="counter-row">
+            <div class="counter-card">
+                <small>Pilhas (1=2)</small>
+                <div class="counter-controls">
+                    <button class="btn-round" onclick="calc('p', -1, 'mP', 'mPP')">-</button>
+                    <span class="qty-val" id="mP">0</span>
+                    <button class="btn-round" onclick="calc('p', 1, 'mP', 'mPP')">+</button>
                 </div>
             </div>
-            <div style="flex:1">
-                <span class="label-mini">Paletes</span>
-                <div class="counter-group">
-                    <button class="btn-qty" onclick="ajustarIndividual('editPP', -1); atualizarSomaModal()">-</button>
-                    <input type="number" id="editPP" class="qty-input" value="0" readonly>
-                    <button class="btn-qty" onclick="ajustarIndividual('editPP', 1); atualizarSomaModal()">+</button>
+            <div class="counter-card">
+                <small>Total Paletes</small>
+                <div class="counter-controls">
+                    <button class="btn-round" onclick="calc('pp', -1, 'mP', 'mPP')">-</button>
+                    <span class="qty-val" id="mPP">0</span>
+                    <button class="btn-round" onclick="calc('pp', 1, 'mP', 'mPP')">+</button>
                 </div>
             </div>
         </div>
 
-        <div id="mTotal" style="font-size:48px; font-weight:900; text-align: center; color: var(--accent);">0</div>
-        <p style="font-size: 11px; color: #888; text-align: center; margin-bottom: 15px;">QUANTIDADE ATUAL</p>
+        <select id="mOperador"></select>
 
-        <div id="acaoBuffer">
-            <span class="label-mini">Puxar para:</span>
-            <select id="selDestino"></select>
-            <button class="btn btn-move" onclick="transferirEZerar()">Mover e Zerar ➔</button>
-        </div>
+        <button onclick="acao('ATUALIZAR')" class="btn-big btn-info">🔄 Atualizar Quantidade (Fica no Buffer)</button>
+        
+        <hr style="border: 0; border-top: 1px solid #30363d; margin: 15px 0;">
 
-        <div id="acaoCarregamento" class="hidden">
-            <span class="label-mini">Operador:</span>
-            <select id="selOp"></select>
-            <span class="label-mini">Serviço:</span>
-            <select id="selTrabalho"></select>
-            <button class="btn btn-ok" onclick="concluir()">Concluir Carga 🚚</button>
-        </div>
-
-        <button class="btn btn-delete" onclick="excluirItem()">Excluir Rua</button>
+        <select id="mDocaAlvo"></select>
+        <button onclick="acao('MOVIDO')" class="btn-big btn-primary">➔ Enviar para Doca</button>
+        <button onclick="acao('CARREGANDO')" class="btn-big btn-warning">🚚 Carregar Caminhão</button>
+        <button onclick="acao('CONCLUIDO')" class="btn-big btn-success">✅ Finalizar Carga</button>
+        
+        <button onclick="excluir()" class="btn-big" style="background:none; color:var(--danger); font-size:12px;">Remover Permanentemente</button>
+        <button onclick="fechar()" class="btn-big" style="background:#21262d; color:#fff;">Voltar</button>
     </div>
 </div>
 
 <script>
+    const BUFFERS = ["B1", "B2", "B3", "B4", "B5"];
     const DOCAS = ["DOCA 53", "DOCA 54", "DOCA 55", "DOCA 56", "DOCA 57", "DOCA 58", "DOCA 59", "DOCA 60", "DOCA 61"];
     const OPERADORES = ["Leandro", "Ale", "Andréa", "Jamil", "Marcão", "Marquinhos", "Núbia", "Ryan"];
-    const TRABALHOS = ["Carregamento", "Joker 🃏", "Patola", "NT", "Puxada", "Puxada Periférico", "Puxada Dedicado"];
-    const CORES = ["#3b82f6", "#ef4444", "#10b981", "#f59e0b", "#8b5cf6", "#71717a"];
+    
+    let app = JSON.parse(localStorage.getItem('meli_pro_v2')) || { aba: "B1", dados: {}, hist: [] };
+    let corSelecionada = "#2f81f7";
+    let indexSel = null;
 
-    let app = JSON.parse(localStorage.getItem('exp_meli_multi_v7')) || {
-        abaAtiva: "BUFFER 1",
-        dados: {
-            "BUFFER 1":[], "BUFFER 2":[], "BUFFER 3":[], "BUFFER 4":[], "BUFFER 5":[],
-            "DOCA 53":[], "DOCA 54":[], "DOCA 55":[], "DOCA 56":[], "DOCA 57":[],
-            "DOCA 58":[], "DOCA 59":[], "DOCA 60":[], "DOCA 61":[]
-        },
-        historico: []
-    };
+    [...BUFFERS, ...DOCAS].forEach(a => { if(!app.dados[a]) app.dados[a] = []; });
 
-    let indexSelecionado = null;
+    document.querySelectorAll('.color-opt').forEach(opt => {
+        opt.addEventListener('click', () => {
+            document.querySelectorAll('.color-opt').forEach(o => o.classList.remove('active'));
+            opt.classList.add('active');
+            corSelecionada = opt.dataset.color;
+        });
+    });
 
-    function updateClock() {
-        const now = new Date();
-        document.getElementById('clock').innerText = now.toLocaleTimeString('pt-BR');
-        document.getElementById('date').innerText = now.toLocaleDateString('pt-BR', { weekday: 'long', day: '2-digit', month: 'long' });
-    }
-    setInterval(updateClock, 1000);
-    updateClock();
-
-    function ajustarAuto(idPilha, val, idPalete) {
-        const p = document.getElementById(idPilha);
-        const pp = document.getElementById(idPalete);
-        let vP = (parseInt(p.value) || 0) + val;
-        if(vP < 0) vP = 0;
-        p.value = vP;
-        pp.value = vP * 2;
-    }
-
-    function ajustarIndividual(id, val) {
-        const el = document.getElementById(id);
-        let v = (parseInt(el.value) || 0) + val;
-        if(v < 0) v = 0;
-        el.value = v;
-    }
-
-    function renderizar() {
-        const rowB = document.getElementById('rowBuffers');
-        rowB.innerHTML = [1,2,3,4,5].map(n => `<button class="tab ${app.abaAtiva === 'BUFFER '+n ? 'active' : ''}" onclick="mudarAba('BUFFER ${n}')">B${n}</button>`).join('') + `<button class="tab hist ${app.abaAtiva === 'HIST' ? 'active' : ''}" onclick="mudarAba('HIST')">HIST</button>`;
-
-        const rowC = document.getElementById('rowCarregamento');
-        rowC.innerHTML = DOCAS.map(nome => {
-            const classeDoca = "d" + nome.split(' ')[1];
-            return `<button class="tab ${classeDoca} ${app.abaAtiva === nome ? 'active' : ''}" onclick="mudarAba('${nome}')">${nome.replace('DOCA ','D')}</button>`;
-        }).join('');
-
-        const grid = document.getElementById('mainGrid');
-        const histSec = document.getElementById('histSec');
-        const histLista = document.getElementById('histLista');
-        const form = document.getElementById('formContainer');
-
-        if(app.abaAtiva === 'HIST') {
-            grid.classList.add('hidden'); form.classList.add('hidden'); histSec.classList.remove('hidden');
-            document.body.style.background = "#ccc";
-            histLista.innerHTML = app.historico.length ? app.historico.map((h, i) => `
-                <div class="hist-card">
-                    <div>
-                        <b>RUA: ${h.rua}</b>
-                        <span class="hist-tag">PLS: ${h.qtd}</span>
-                        <span class="hist-tag">${h.hora}</span><br>
-                        <span class="hist-tag">${h.op}</span>
-                        <span class="hist-tag">${h.trabalho}</span><br>
-                        <small style="color:#555">${h.local}</small>
-                    </div>
-                    <button class="btn-del-mini" onclick="excluirHist(${i})">✕</button>
-                </div>`).join('') : '<p style="text-align:center; color:#666;">Vazio.</p>';
+    function calc(tipo, val, idP, idPP) {
+        let p = document.getElementById(idP), pp = document.getElementById(idPP);
+        let vP = parseInt(p.innerText), vPP = parseInt(pp.innerText);
+        
+        if(tipo === 'p') {
+            let novoP = Math.max(0, vP + val);
+            p.innerText = novoP;
+            pp.innerText = novoP * 2;
         } else {
-            grid.classList.remove('hidden'); form.classList.remove('hidden'); histSec.classList.add('hidden');
-            document.body.style.background = "#000";
-            grid.innerHTML = (app.dados[app.abaAtiva] || []).map((item, i) => `
-                <div class="bloco" style="border-color:${item.cor}; background: rgba(255,255,255,0.05)" onclick="abrirModal(${i})">
-                    <div class="titulo">${item.nome}</div>
-                    <div class="qtd" style="color:${item.cor}">${item.pp}</div>
+            pp.innerText = Math.max(0, vPP + val);
+        }
+    }
+
+    function render() {
+        document.getElementById('tabsBuffers').innerHTML = BUFFERS.map(b => `<button class="tab ${app.aba===b?'active':''}" onclick="mudarAba('${b}')">${b}</button>`).join('') + `<button class="tab hist-tab ${app.aba==='HIST'?'active':''}" onclick="mudarAba('HIST')">Log</button>`;
+        document.getElementById('tabsDocas').innerHTML = DOCAS.map(d => `<button class="tab ${app.aba===d?'active':''}" onclick="mudarAba('${d}')">${d.replace('DOCA ','D')}</button>`).join('');
+        
+        const grid = document.getElementById('mainGrid');
+        const hist = document.getElementById('histSec');
+        const form = document.getElementById('formEntrada');
+
+        if(app.aba === 'HIST') {
+            grid.style.display = 'none'; form.style.display = 'none'; hist.style.display = 'block';
+            document.getElementById('histLista').innerHTML = app.hist.map(h => `
+                <div class="hist-item">
+                    <div><b style="color:var(--accent)">${h.rua}</b><br><small style="color:#8b949e">${h.op}</small></div>
+                    <div style="text-align:right"><b>${h.qtd} PAL</b><br><small>${h.acao}</small><br><small style="font-size:9px">${h.data} ${h.hora}</small></div>
+                </div>`).join('');
+        } else {
+            grid.style.display = 'grid'; form.style.display = 'block'; hist.style.display = 'none';
+            grid.innerHTML = app.dados[app.aba].map((item, i) => `
+                <div class="bloco" onclick="abrirModal(${i})" style="background:${item.cor}15; border-color:${item.cor}; opacity:${item.pp == 0 ? '0.5' : '1'}">
+                    <div class="bloco-rua" style="color:${item.cor}">${item.rua}</div>
+                    <div class="bloco-qtd" style="color:${item.cor}">${item.pp}</div>
+                    <div class="bloco-status">${item.pp == 0 ? 'VAZIO' : item.status}</div>
                 </div>`).join('');
         }
-        
-        document.getElementById('selDestino').innerHTML = DOCAS.map(d => `<option value="${d}">${d}</option>`).join('');
-        document.getElementById('selOp').innerHTML = OPERADORES.map(o => `<option>${o}</option>`).join('');
-        document.getElementById('selTrabalho').innerHTML = TRABALHOS.map(t => `<option>${t}</option>`).join('');
-        localStorage.setItem('exp_meli_multi_v7', JSON.stringify(app));
+        localStorage.setItem('meli_pro_v2', JSON.stringify(app));
     }
 
-    function mudarAba(aba) { app.abaAtiva = aba; renderizar(); }
+    function mudarAba(a) { app.aba = a; render(); }
 
     function adicionar() {
-        const rua = document.getElementById('ruaNum').value;
+        let rua = document.getElementById('ruaNum').value;
         if(!rua) return;
-        app.dados[app.abaAtiva].push({
-            nome: rua.toUpperCase(),
-            p: parseInt(document.getElementById('qtdP').value),
-            pp: parseInt(document.getElementById('qtdPP').value),
-            cor: CORES[0]
+        app.dados[app.aba].push({ 
+            rua: rua.toUpperCase(), 
+            p: parseInt(document.getElementById('dispP').innerText), 
+            pp: parseInt(document.getElementById('dispPP').innerText), 
+            status: 'BUFFER',
+            cor: corSelecionada
         });
-        document.getElementById('ruaNum').value = "";
-        renderizar();
+        document.getElementById('ruaNum').value = '';
+        render();
     }
 
     function abrirModal(i) {
-        indexSelecionado = i;
-        const item = app.dados[app.abaAtiva][i];
-        document.getElementById('mRua').innerText = "Rua " + item.nome;
-        document.getElementById('editP').value = item.p;
-        document.getElementById('editPP').value = item.pp;
+        indexSel = i;
+        let item = app.dados[app.aba][i];
+        document.getElementById('mRua').innerText = item.rua;
+        document.getElementById('mRua').style.color = item.cor;
+        document.getElementById('mStatusBadge').innerText = item.status;
+        document.getElementById('mP').innerText = item.p == 0 ? 1 : item.p;
+        document.getElementById('mPP').innerText = item.pp == 0 ? 2 : item.pp;
+        document.getElementById('mOperador').innerHTML = OPERADORES.map(o => `<option>${o}</option>`).join('');
+        document.getElementById('mDocaAlvo').innerHTML = DOCAS.map(d => `<option value="${d}">${d}</option>`).join('');
+        document.getElementById('modal').style.display = 'flex';
+    }
+
+    function acao(tipo) {
+        let item = app.dados[app.aba][indexSel];
+        let op = document.getElementById('mOperador').value;
+        let nPP = parseInt(document.getElementById('mPP').innerText);
+        let nP = parseInt(document.getElementById('mP').innerText);
+        let agora = new Date();
         
-        document.getElementById('mCores').innerHTML = CORES.map(c => `<div class="color-dot ${item.cor === c ? 'active' : ''}" style="background:${c}" onclick="mudarCor('${c}')"></div>`).join('');
+        let log = { rua: item.rua, qtd: nPP, op: op, data: agora.toLocaleDateString(), hora: agora.toLocaleTimeString().slice(0,5) };
 
-        if(DOCAS.includes(app.abaAtiva)) {
-            document.getElementById('acaoBuffer').classList.add('hidden'); document.getElementById('acaoCarregamento').classList.remove('hidden');
+        if (tipo === 'ATUALIZAR') {
+            item.pp = nPP;
+            item.p = nP;
+            item.status = 'BUFFER';
+            log.acao = `Abasteceu Buffer`;
+        } else if(tipo === 'MOVIDO') {
+            let dest = document.getElementById('mDocaAlvo').value;
+            app.dados[dest].push({ rua: item.rua, p: nP, pp: nPP, status: 'DOCA', cor: item.cor });
+            if(BUFFERS.includes(app.aba)) { item.pp = 0; item.p = 0; item.status = 'VAZIO'; }
+            else { app.dados[app.aba].splice(indexSel, 1); }
+            log.acao = `Enviado p/ ${dest}`;
+        } else if(tipo === 'CARREGANDO') {
+            item.status = 'CARREGANDO'; item.pp = nPP; item.p = nP; log.acao = "Iniciou Carga";
         } else {
-            document.getElementById('acaoBuffer').classList.remove('hidden'); document.getElementById('acaoCarregamento').classList.add('hidden');
+            log.acao = "Finalizado";
+            if(BUFFERS.includes(app.aba)) { item.pp = 0; item.p = 0; item.status = 'VAZIO'; }
+            else { app.dados[app.aba].splice(indexSel, 1); }
         }
-        atualizarSomaModal();
-        document.getElementById('modal').style.display = "flex";
+
+        app.hist.unshift(log);
+        fechar();
     }
 
-    function mudarCor(cor) { app.dados[app.abaAtiva][indexSelecionado].cor = cor; fecharModal(); }
-
-    function atualizarSomaModal() {
-        const pp = document.getElementById('editPP').value;
-        document.getElementById('mTotal').innerText = pp;
-        app.dados[app.abaAtiva][indexSelecionado].p = parseInt(document.getElementById('editP').value);
-        app.dados[app.abaAtiva][indexSelecionado].pp = parseInt(pp);
-    }
-
-    function transferirEZerar() {
-        const destino = document.getElementById('selDestino').value;
-        const item = app.dados[app.abaAtiva][indexSelecionado];
-        if(item.pp > 0) {
-            registrarHist(item.nome, item.pp, "SISTEMA", "Puxada", app.abaAtiva + " ➔ " + destino);
-            app.dados[destino].push({ ...item });
-            item.p = 0; item.pp = 0; 
-            fecharModal();
-        } else { alert("Rua vazia!"); }
-    }
-
-    function concluir() {
-        const item = app.dados[app.abaAtiva][indexSelecionado];
-        registrarHist(item.nome, item.pp, document.getElementById('selOp').value, document.getElementById('selTrabalho').value, "FINALIZADO EM " + app.abaAtiva);
-        app.dados[app.abaAtiva].splice(indexSelecionado, 1);
-        fecharModal();
-    }
-
-    function registrarHist(rua, qtd, op, trabalho, local) {
-        const agora = new Date();
-        const data = agora.toLocaleDateString('pt-BR');
-        const hora = agora.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
-        app.historico.unshift({ data, hora, rua, qtd, op, trabalho, local });
-        if(app.historico.length > 500) app.historico.pop();
-    }
-
-    function excluirHist(idx) { if(confirm("Apagar?")) { app.historico.splice(idx, 1); renderizar(); } }
-    function fecharModal() { document.getElementById('modal').style.display = "none"; renderizar(); }
-    function excluirItem() { if(confirm("Remover?")) { app.dados[app.abaAtiva].splice(indexSelecionado, 1); fecharModal(); } }
-
-    renderizar();
+    function excluir() { if(confirm("Remover estado definitivamente?")) { app.dados[app.aba].splice(indexSel, 1); fechar(); } }
+    function fechar() { document.getElementById('modal').style.display = 'none'; render(); }
+    
+    setInterval(() => {
+        const now = new Date();
+        document.getElementById('clock').innerText = now.toLocaleTimeString();
+        document.getElementById('date').innerText = now.toLocaleDateString('pt-BR', {weekday:'long', day:'numeric', month:'long'});
+    }, 1000);
+    
+    render();
 </script>
 </body>
-</html>
+                </html>
+    
